@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <h2>Employees:</h2>
+
+    <div id="student-list">
+        <!-- Verilerin listeleneceği boş bir div -->
+    </div>
+
+    <script>
+        function processData(data) {
+            var studentList = document.getElementById('student-list');
+
+            // Verileri ekrana yazdıralım
+            for (var i = 0; i < data.length; i++) {
+                var studentDiv = document.createElement('div');
+                studentDiv.innerHTML = '<p>Name: ' + data[i].name + '</p>' +
+                                       '<p>Email: ' + data[i].email + '</p>' +
+                                       '<br>';
+                studentList.appendChild(studentDiv);
+            }
+        }
+
+        // JSONP çağrısı yapalım
+        function fetchData() {
+            var script = document.createElement('script');
+            script.src = 'http://localhost/data.php?callback=processData';
+            document.body.appendChild(script);
+        }
+
+        // Sayfa yüklendiğinde veriyi alalım
+        window.onload = fetchData;
+    </script>
+</body>
+</html>
